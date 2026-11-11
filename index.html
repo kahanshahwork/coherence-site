@@ -176,32 +176,40 @@ a{color:inherit;text-decoration:none}
 .df .yes{opacity:var(--y,0);transform:translate3d(calc((1 - var(--y,0)) * 18px),0,0)}
 .dend{max-width:50ch;font-size:clamp(14px,1.2vw,18px);line-height:1.45;color:rgb(var(--fgc)/.6)}
 
-/* WORK: framed slideshow */
-.work .stick{background:#0d0e10}
-.wlay{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:clamp(70px,calc(var(--vh,1vh)*9),94px) var(--gx) clamp(50px,calc(var(--vh,1vh)*6.5),64px);gap:clamp(12px,calc(var(--vh,1vh)*2.2),24px)}
-.wttl{position:static;color:#f1f1ee;flex:none}
-.wttl .h2{font-size:clamp(22px,2.5vw,38px);letter-spacing:-.035em}
-.winfo{flex:none;min-height:clamp(118px,calc(var(--vh,1vh)*15.5),160px);display:grid;grid-template-columns:1fr 1.25fr .8fr;gap:clamp(16px,2.6vw,44px);align-items:start;color:#f1f1ee;transition:opacity .35s;border-top:1px solid rgb(241 241 238/.14);padding-top:clamp(12px,calc(var(--vh,1vh)*2),20px)}
+/* WORK: full-screen dot-art slides for apps, framed slideshow for websites */
+.slides{position:absolute;inset:0}
+.sl{position:absolute;inset:0;opacity:0;will-change:opacity,filter,transform}
+.sl canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+.sl.app::after{content:'';position:absolute;inset:0;background:linear-gradient(rgb(13 14 16/.32),rgb(13 14 16/.5))}
+.wttl{position:absolute;left:var(--gx);top:clamp(88px,calc(var(--vh,1vh)*13),128px);z-index:4;color:#f1f1ee;transition:opacity .3s}
+.wttl .h2{font-size:clamp(30px,4.2vw,70px)}
+.wttl .wl2{display:block;color:rgb(241 241 238/.6)}
+.winfo{position:absolute;z-index:4;left:var(--gx);right:var(--gx);top:50%;transform:translateY(-50%);display:grid;grid-template-columns:1fr 1.5fr .8fr;gap:clamp(16px,2.6vw,44px);align-items:start;color:#f1f1ee;transition:opacity .3s}
 .wg{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7da2ff;margin-bottom:8px}
 .wn{font-size:clamp(20px,2.3vw,36px);font-weight:500;letter-spacing:-.035em;line-height:1.06}
-.wd{font-size:clamp(13px,1.05vw,15.5px);line-height:1.5;color:rgb(241 241 238/.7);max-width:58ch}
+.wd{display:none;font-size:clamp(13px,1.05vw,15.5px);line-height:1.5;color:rgb(241 241 238/.7);max-width:58ch}
+.wp{list-style:none;display:flex;flex-direction:column;gap:7px;font-size:clamp(13px,1.1vw,16px);line-height:1.4;color:rgb(241 241 238/.78);max-width:60ch}
+.wp li{position:relative;padding-left:18px}
+.wp li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:#7da2ff}
 .wc3{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
 .wr{font-size:clamp(14px,1.2vw,18px);letter-spacing:-.02em;line-height:1.3;color:#f1f1ee}
 .wvisit{display:none;align-items:center;gap:8px;height:38px;padding:0 16px;border:1px solid rgb(241 241 238/.35);border-radius:99px;color:#f1f1ee;font-size:13px;text-decoration:none;transition:background .25s,color .25s,border-color .25s}
 .wvisit i{font-style:normal;transition:transform .25s}
 .wvisit.on{display:inline-flex}
 .wvisit:hover{background:#f1f1ee;color:#0d0e10;border-color:#f1f1ee}.wvisit:hover i{transform:translate(2px,-2px)}
-.wpanel{flex:1;min-height:0;display:flex;justify-content:center;align-items:center}
-.wfr{height:100%;aspect-ratio:1.85;max-width:100%;border-radius:16px;overflow:hidden;background:#16181c;border:1px solid rgb(241 241 238/.14);box-shadow:0 40px 90px -40px rgba(0,0,0,.85);display:flex;flex-direction:column;isolation:isolate;transform:translateZ(0)}
+/* website mode: title and info move up, the browser frame gets the room below */
+.work.web .wttl{top:clamp(70px,calc(var(--vh,1vh)*9),94px)}
+.work.web .wttl .h2{font-size:clamp(22px,2.5vw,38px)}
+.work.web .wttl .wl2{display:inline}
+.work.web .winfo{top:clamp(138px,calc(var(--vh,1vh)*17.5),170px);transform:none;border-top:1px solid rgb(241 241 238/.14);padding-top:clamp(12px,calc(var(--vh,1vh)*2),20px)}
+.work.web .wd{display:block}.work.web .wp{display:none}
+.wfr{position:absolute;left:50%;transform:translateX(-50%) translateZ(0);top:clamp(300px,calc(var(--vh,1vh)*36),350px);bottom:clamp(54px,calc(var(--vh,1vh)*7),70px);aspect-ratio:1.85;max-width:calc(100% - 2*var(--gx));border-radius:16px;overflow:hidden;background:#16181c;border:1px solid rgb(241 241 238/.14);box-shadow:0 40px 90px -40px rgba(0,0,0,.85);display:flex;flex-direction:column;isolation:isolate}
 .wbar{height:32px;flex:none;display:flex;align-items:center;gap:7px;padding:0 14px;background:#1d1f24;border-bottom:1px solid rgb(241 241 238/.08)}
 .wbar i{width:9px;height:9px;border-radius:50%;background:rgb(241 241 238/.22)}
 .wurl{margin:0 auto;transform:translateX(-24px);height:18px;min-width:34%;padding:0 14px;border-radius:9px;background:rgb(241 241 238/.07);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;line-height:18px;text-align:center;color:rgb(241 241 238/.5)}
 .wcont{position:relative;flex:1;min-height:0;background:#0d0e10;overflow:hidden}
-.slides{position:relative}
-.sl{position:absolute;inset:0;opacity:0;will-change:opacity,filter,transform}
-.sl canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
-.sl .sh{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;opacity:0;transition:opacity 1.6s ease}
-.sl .sh.on{opacity:1;animation:kb 8s ease-out forwards}
+.wcont .sh{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;opacity:0;transition:opacity 1.6s ease}
+.wcont .sh.on{opacity:1;animation:kb 8s ease-out forwards}
 @keyframes kb{from{transform:scale(1)}to{transform:scale(1.05)}}
 .wnote{position:absolute;left:var(--gx);right:var(--gx);bottom:clamp(20px,calc(var(--vh,1vh)*3),36px);z-index:4;display:flex;justify-content:space-between;color:rgb(241 241 238/.6);font-size:13px}
 
@@ -273,13 +281,17 @@ a{color:inherit;text-decoration:none}
   .dfr{grid-template-columns:1fr}
   .df>div.no{border-bottom:0;padding-bottom:0}
   .df>div.yes{padding-top:2px}
-  .wlay{padding-top:74px;gap:12px}
-  .winfo{grid-template-columns:1fr;gap:8px;min-height:calc(var(--vh,1vh)*25)}
+  .wttl,.work.web .wttl{top:74px}
+  .wttl .h2,.work.web .wttl .h2{font-size:clamp(22px,6vw,30px)}
+  .wttl .wl2,.work.web .wttl .wl2{display:inline}
+  .winfo,.work.web .winfo{top:126px;transform:none;grid-template-columns:1fr;gap:8px;border-top:1px solid rgb(241 241 238/.14);padding-top:12px}
   .wg{margin-bottom:5px}.wn{font-size:clamp(20px,5.6vw,26px)}
   .wd{font-size:13px;line-height:1.45}
+  .wp{gap:5px;font-size:13px}
   .wc3{flex-direction:row;align-items:center;justify-content:space-between;gap:12px;margin-top:2px}
   .wr{font-size:13px;color:#7da2ff}
-  .wfr{height:auto;width:100%;aspect-ratio:5/4;max-height:100%}
+  .sl.app::after{background:linear-gradient(rgb(13 14 16/.62),rgb(13 14 16/.72))}
+  .wfr{top:auto;left:var(--gx);right:var(--gx);transform:translateZ(0);bottom:clamp(46px,calc(var(--vh,1vh)*6.5),60px);aspect-ratio:1.1;max-width:none;width:auto}
   .foot{flex-direction:column;align-items:flex-start;gap:12px}
   .pill{height:44px;padding:0 16px}
 }
@@ -428,19 +440,12 @@ a{color:inherit;text-decoration:none}
 <!-- WORK: full-screen slides -->
 <section id="work" class="sec dk pin work" data-len="900">
   <div class="stick">
-    <div class="wlay">
-      <div class="wttl" id="wttl"><h2 class="h2">Real work. <span style="color:rgb(241 241 238/.6)">Real numbers.</span></h2></div>
-      <div class="winfo" id="winfo">
-        <div class="wc1"><span class="wg" id="wG"></span><h3 class="wn" id="wN"></h3></div>
-        <p class="wd" id="wD"></p>
-        <div class="wc3"><span class="wr" id="wR"></span><a class="wvisit" id="wV" target="_blank" rel="noopener noreferrer">Visit <i>&#8599;</i></a></div>
-      </div>
-      <div class="wpanel">
-        <div class="wfr">
-          <div class="wbar"><i></i><i></i><i></i><span class="wurl" id="wUrl"></span></div>
-          <div class="wcont slides" id="slides"></div>
-        </div>
-      </div>
+    <div class="slides" id="slides"></div>
+    <div class="wttl" id="wttl"><h2 class="h2">Real work.<span class="wl2"> Real numbers.</span></h2></div>
+    <div class="winfo" id="winfo">
+      <div class="wc1"><span class="wg" id="wG"></span><h3 class="wn" id="wN"></h3></div>
+      <div class="wc2"><p class="wd" id="wD"></p><ul class="wp" id="wP"></ul></div>
+      <div class="wc3"><span class="wr" id="wR"></span><a class="wvisit" id="wV" target="_blank" rel="noopener noreferrer">Visit <i>&#8599;</i></a></div>
     </div>
     <div class="wnote"><span>Selected projects</span><span id="wNote">Scroll</span></div>
   </div>
@@ -466,11 +471,11 @@ var CONFIG={
   INTRO_VIDEO:{landscape:'assets/intro-16x9.mp4',portrait:'assets/intro-9x16.mp4'},   /* played full screen before the site, with sound and a Skip button */
   EMAIL:'paraiq.app@gmail.com',
   WORK:[
-    {group:'Horizontal SaaS',title:'ParaIQ Paraplanning Assistant',desc:'A multi-user, multi-view app that runs locally for Indian paraplanning firms serving Australian clients. It covers extraction and preparation, initial review and the SoA draft, on zero-retention AI with no data collection by us.',result:'Cuts working time by 50–70%, at a very low cost.'},
-    {group:'Horizontal SaaS',title:'Inventory system for a rubber belt company',desc:'Handles Indian measuring, storing and supply-chain practices to keep stock reconciled. Tracks purchase, live orders and movement, with multi-user, multi-view access and complex SKU handling built in.',result:'One reconciled view of purchase, orders and stock.'},
-    {group:'Horizontal SaaS',title:'BAS automation for bookkeeping firms',desc:'Reads bank documents into structured output, allocates each transaction using vendor memory, then prepares GST and P&L figures. Multi-user, locally hosted, strictly zero-retention AI, no data sharing.',result:'From bank statement to GST and P&L, automatically.'},
-    {group:'Vertical SaaS',title:'Financial planning CRM',desc:'Built for an Indian financial advisory firm, with financial planners built in, real-time mobile and web views, chat, notes and everything an office needs to run smoothly. Hosted locally, no data collection.',result:'One workspace for the whole advisory office.'},
-    {group:'Vertical SaaS',title:'Trading analysis platform',desc:'Connects to a live feed for custom scripts and real-time alerts, on both mobile and web, at a much lower cost than the alternatives.',result:'Live alerts on your own scripts, for far less.'},
+    {group:'Horizontal SaaS',title:'ParaIQ Paraplanning Assistant',points:["Multi-user, multi-view app for Indian paraplanning firms serving Australian clients", "Covers three core tasks: extraction and preparation, initial review and the SoA draft", "Runs locally, on zero-retention AI, with no data collection by us", "Built to audited, financial-planning quality standards"],desc:'A multi-user, multi-view app that runs locally for Indian paraplanning firms serving Australian clients. It covers extraction and preparation, initial review and the SoA draft, on zero-retention AI with no data collection by us.',result:'Cuts working time by 50–70%, at a very low cost.'},
+    {group:'Horizontal SaaS',title:'Inventory system for a rubber belt company',points:["Handles Indian measuring, storing and usage practices", "Tracks purchase, live orders, inventory and movement separately", "Complex SKU handling and stock reconciliation built in", "Multi-user and multi-view"],desc:'Handles Indian measuring, storing and supply-chain practices to keep stock reconciled. Tracks purchase, live orders and movement, with multi-user, multi-view access and complex SKU handling built in.',result:'One reconciled view of purchase, orders and stock.'},
+    {group:'Horizontal SaaS',title:'BAS automation for bookkeeping firms',points:["Reads bank documents into structured output", "Allocates transactions, with vendor memory to categorise them", "Prepares GST and P&L figures automatically", "Multi-user, multi-view, locally hosted, zero-retention AI, no data sharing"],desc:'Reads bank documents into structured output, allocates each transaction using vendor memory, then prepares GST and P&L figures. Multi-user, locally hosted, strictly zero-retention AI, no data sharing.',result:'From bank statement to GST and P&L, automatically.'},
+    {group:'Vertical SaaS',title:'Financial planning CRM',points:["Many financial planners built in", "Real-time mobile and web views", "Chat, notes and everything an office needs to run smoothly", "Hosted locally, with no data collection"],desc:'Built for an Indian financial advisory firm, with financial planners built in, real-time mobile and web views, chat, notes and everything an office needs to run smoothly. Hosted locally, no data collection.',result:'One workspace for the whole advisory office.'},
+    {group:'Vertical SaaS',title:'Trading analysis platform',points:["Connected to a live data feed", "Custom scripts and real-time alerts", "Works on both mobile and web", "Far cheaper than the alternatives"],desc:'Connects to a live feed for custom scripts and real-time alerts, on both mobile and web, at a much lower cost than the alternatives.',result:'Live alerts on your own scripts, for far less.'},
     {group:'Website',title:'ParaIQ',desc:'The product site for ParaIQ, walking through the path from documents in to advice out, and how client data is never kept.',result:'A clear story of what the product does.',url:'https://www.paraiq.site/',shots:['assets/work/paraiq-1.jpg','assets/work/paraiq-2.jpg','assets/work/paraiq-3.jpg','assets/work/paraiq-4.jpg']},
     {group:'Website',title:'Rajdeep Jewellers',desc:'A storyboard-style, Indian-styled website for a jewellery brand, built so heirloom pieces are browsed like a story.',result:'Heritage, told as a story you scroll.',url:'https://www.rajdeepjewellers.com/',shots:['assets/work/rajdeep-1.jpg','assets/work/rajdeep-2.jpg','assets/work/rajdeep-3.jpg','assets/work/rajdeep-4.jpg','assets/work/rajdeep-5.jpg']},
     {group:'Website',title:'Super Plastech',desc:'A site for a plastic products manufacturer, presenting its tubs and its recycled PA6 granules as two separate lines.',result:'Two product lines, one clear catalogue.',url:'https://superplastech.co.in/',shots:['assets/work/plastech-1.jpg','assets/work/plastech-2.jpg','assets/work/plastech-3.jpg']},
@@ -1540,21 +1545,22 @@ function impViz(kind,D,S){
 
 /* ---------------- WORK: framed slideshow, any number of projects ---------------- */
 (function(){
-  var sec=$('#work'),box=$('#slides'),note=$('#wNote'),info=$('#winfo'),eG=$('#wG'),eN=$('#wN'),eD=$('#wD'),eR=$('#wR'),eV=$('#wV'),eT=$('#wUrl');
+  var sec=$('#work'),box=$('#slides'),note=$('#wNote'),info=$('#winfo'),ttl=$('#wttl'),eG=$('#wG'),eN=$('#wN'),eD=$('#wD'),eP=$('#wP'),eR=$('#wR'),eV=$('#wV');
   var list=CONFIG.WORK&&CONFIG.WORK.length?CONFIG.WORK:[{group:'Project',title:'Project one',desc:'',result:''}];
   var n=list.length,BG=['#16203a','#241a30','#122a2a','#2a2418','#1a1d2e','#1c2630'],slides=[],SHOW=4.4;
   list.forEach(function(it,i){
     var el=document.createElement('div'),sl={el:el,D:null,shots:[],idx:-1,t0:0};el.className='sl';
     if(it.shots&&it.shots.length){
-      el.style.background='#0d0e10';
-      it.shots.forEach(function(src){var im=new Image();im.className='sh';im.alt='';im.decoding='async';im.src=src;el.appendChild(im);sl.shots.push(im)});
+      var fr=document.createElement('div'),ct=document.createElement('div');fr.className='wfr';ct.className='wcont';
+      fr.innerHTML='<div class="wbar"><i></i><i></i><i></i><span class="wurl"></span></div>';fr.querySelector('.wurl').textContent=it.group||'';fr.appendChild(ct);el.appendChild(fr);
+      it.shots.forEach(function(src){var im=new Image();im.className='sh';im.alt='';im.decoding='async';im.src=src;ct.appendChild(im);sl.shots.push(im)});
     }else{
-      el.style.background=BG[i%BG.length];
+      el.classList.add('app');el.style.background=BG[i%BG.length];
       var cv=document.createElement('canvas');el.appendChild(cv);sl.cv=cv;
     }
     box.appendChild(el);slides.push(sl);
   });
-  slides.forEach(function(sl){if(sl.cv){sl.D=new Dots(sl.cv,{px:10,maxR:.36,dpr:1,base:PAPER,hot:BLUEL})}});
+  slides.forEach(function(sl){if(sl.cv){sl.D=new Dots(sl.cv,{px:12,maxR:.36,dpr:1,base:PAPER,hot:BLUEL})}});
   function art(i){
     switch(i%4){
     case 0:return function(c,r,x,y,t,D){var v=.5+.5*Math.sin(x*.016+t*.6)*Math.cos(y*.019-t*.4);return v>.62?(v-.55)*1.6:0};
@@ -1569,7 +1575,9 @@ function impViz(kind,D,S){
     var raw=s.ps*n,i0=Math.min(n-1,Math.floor(raw)),fr=raw-i0,pos=i0>=n-1?n-1:i0+sm(.5,1,fr),cur=Math.round(pos);
     if(cur!==sc.cur){
       sc.cur=cur;var it=list[cur];
-      eG.textContent=it.group||'';eN.textContent=it.title;eD.textContent=it.desc||'';eR.textContent=it.result||'';eT.textContent=it.group||'';
+      eG.textContent=it.group||'';eN.textContent=it.title;eD.textContent=it.desc||'';eR.textContent=it.result||'';
+      eP.innerHTML='';(it.points||[]).forEach(function(t){var li=document.createElement('li');li.textContent=t;eP.appendChild(li)});
+      sec.classList.toggle('web',!!(it.shots&&it.shots.length));
       if(it.url){eV.href=it.url;eV.classList.add('on')}else{eV.removeAttribute('href');eV.classList.remove('on')}
       note.textContent=('0'+(cur+1)).slice(-2)+' / '+('0'+n).slice(-2);
       slides[cur].t0=K.NOW;slides[cur].idx=-1;
@@ -1586,7 +1594,7 @@ function impViz(kind,D,S){
       }
     });
     var k=1-clamp(Math.abs(pos-cur)*2.4);
-    info.style.opacity=k.toFixed(2);info.style.pointerEvents=k>.6?'auto':'none';
+    info.style.opacity=k.toFixed(2);ttl.style.opacity=(.25+.75*k).toFixed(2);info.style.pointerEvents=k>.6?'auto':'none';
   });
   K.setLen(sc,Math.max(180,n*85));
   sc.cur=-1;
