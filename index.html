@@ -240,8 +240,14 @@ a{color:inherit;text-decoration:none}
 #gate .gb{position:absolute;bottom:clamp(22px,calc(var(--vh,1vh)*4),40px);display:flex;gap:10px;color:#f1f1ee}
 #gate .gb button{z-index:2;position:relative;height:38px;padding:0 18px;border-radius:99px;border:1px solid rgb(241 241 238/.3);font-size:13px;backdrop-filter:blur(8px)}
 #gate .gl{left:var(--gx)}#gate .gr{right:var(--gx)}
-#gate .gp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:none;height:56px;padding:0 30px;border-radius:99px;border:1px solid rgb(241 241 238/.4);background:rgb(241 241 238/.1);backdrop-filter:blur(10px);color:#f1f1ee;font-size:16px;letter-spacing:-.01em;z-index:2}
-#gate.wait .gp{display:block}#gate.wait .gr{visibility:hidden}
+#gate .gc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,calc(var(--vh,1vh)*2),22px);z-index:2;opacity:0;pointer-events:none;transition:opacity .7s var(--ease)}
+#gate .go{--D:min(calc(var(--vh,1vh)*44),78vw,470px);position:relative;width:calc(var(--D) * 1.2);height:calc(var(--D) * 1.2);display:grid;place-items:center;flex:none}
+#gate .go canvas{position:absolute;left:50%;top:50%;width:calc(var(--D) / .544);height:calc(var(--D) / .544);transform:translate(-50%,-50%);pointer-events:none}
+#gate .gt{position:relative;text-align:center;color:#f1f1ee;font-weight:500;letter-spacing:-.045em;line-height:1.02;font-size:clamp(24px,calc(var(--D) * .115),54px)}
+#gate .gp{height:56px;padding:0 30px;border-radius:99px;border:1px solid rgb(241 241 238/.4);background:rgb(241 241 238/.1);backdrop-filter:blur(10px);color:#f1f1ee;font-size:16px;letter-spacing:-.01em}
+#gate .gt .acc{color:#8ea6ff}
+#gate.wait .gc{opacity:1;pointer-events:auto}#gate.wait .gr{visibility:hidden}
+#gate video{opacity:0;transition:opacity .8s var(--ease)}#gate.go video{opacity:1}
 #gate{background:#050506}
 
 /* responsive */
@@ -308,7 +314,7 @@ a{color:inherit;text-decoration:none}
 </style>
 </head>
 <body>
-<div id="gate" aria-hidden="true"><video id="gateVid" playsinline preload="auto"></video><button class="gp" id="gatePlay">Play intro with sound</button><div class="gb gl"><button id="gateSkip">Skip intro</button></div><div class="gb gr"><button id="gateSnd">Sound off</button></div></div>
+<div id="gate" aria-hidden="true"><video id="gateVid" playsinline preload="auto"></video><div class="gc"><div class="go"><canvas id="orbGate"></canvas><h2 class="gt">Leap into<br>the <span class="ser acc">infinite</span></h2></div><button class="gp" id="gatePlay">Play intro with sound</button></div><div class="gb gl"><button id="gateSkip">Skip intro</button></div><div class="gb gr"><button id="gateSnd">Sound off</button></div></div>
 
 <header class="hd" id="hd">
   <a class="pill lgp" href="#top" data-go="top" aria-label="Coherence Tech, home"><span class="lg"><span>C</span><span class="mk-o"><canvas id="orbHd" class="tg"></canvas></span><span>herence</span></span></a>
@@ -1227,12 +1233,13 @@ function runGate(go){
   function end(){if(fin)return;fin=true;try{v.pause()}catch(e){}g.classList.add('out');g.classList.remove('wait');go();setTimeout(function(){g.classList.remove('on');g.setAttribute('aria-hidden','true');v.removeAttribute('src');v.load()},1000)}
   function label(){snd.textContent=v.muted?'Sound on':'Sound off'}
   g.classList.add('on');g.setAttribute('aria-hidden','false');document.documentElement.classList.add('lock');
-  v.src=url;v.muted=false;label();
-  var p=v.play();
-  /* browsers usually refuse sound before a tap: then the viewer gets one big button, and Skip stays available */
-  if(p&&p.catch)p.catch(function(){if(!fin){g.classList.add('wait');v.muted=false;label()}});
+  v.src=url;v.muted=false;label();v.preload='auto';
+  /* every visit: the orb start screen first, so the intro can always play with sound after one tap */
+  var og=H.createOrb($('#orbGate'),{dpr:function(S){return S>700?1:S>420?1.15:Math.min(window.devicePixelRatio||1,2)}});
+  og.size();og.seek(0,0);K.resizers.push(function(){og.size()});
+  g.classList.add('wait');
   $('#gatePlay').addEventListener('click',function(){
-    g.classList.remove('wait');v.muted=false;label();
+    g.classList.remove('wait');g.classList.add('go');v.muted=false;label();
     var q=v.play();if(q&&q.catch)q.catch(function(){v.muted=true;label();v.play().catch(end)});
   });
   v.addEventListener('playing',function(){g.classList.remove('wait')});
